@@ -1,0 +1,29 @@
+{
+  "extension_name": {
+    "message": "Youtube Verberg Secties"
+  },
+  "extension_description": {
+    "message": "Een add-on die geconfigureerde secties verbergt op Youtube."
+  },
+  "options_page_title": {
+    "message": "Opties"
+  },
+  "options_page_header": {
+    "message": "Opties"
+  },
+  "options_page_input_section_names_label": {
+    "message": "Sectie namen:"
+  },
+  "options_page_input_section_names_info": {
+    "message": "Te verbergen sectie namen gescheiden bij puntkomma (;)."
+  },
+  "options_page_save_button_text": {
+    "message": "Opslaan"
+  },
+  "options_validation_input_mandatory": {
+    "message": "Invoer is verplicht."
+  },
+  "options_save_success": {
+    "message": "Opties zijn succesvol opgeslagen."
+  }
+}

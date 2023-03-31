@@ -1,0 +1,20 @@
+{
+  "name": "youtube-hide-sections",
+  "version": "1.0.0",
+  "description": "An add-on that hides sections on Youtube.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "package": "gulp",
+    "deploy": "npm run build && npm run package"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chrome": "^0.0.227",
+    "gulp": "^4.0.2",
+    "gulp-zip": "^5.1.0",
+    "typescript": "^5.0.2"
+  }
+}

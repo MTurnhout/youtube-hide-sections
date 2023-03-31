@@ -1,0 +1,29 @@
+{
+  "extension_name": {
+    "message": "Youtube Hide Sections"
+  },
+  "extension_description": {
+    "message": "An add-on that hides configured sections on Youtube."
+  },
+  "options_page_title": {
+    "message": "Options"
+  },
+  "options_page_header": {
+    "message": "Options"
+  },
+  "options_page_input_section_names_label": {
+    "message": "Section names:"
+  },
+  "options_page_input_section_names_info": {
+    "message": "The section names to hide separated by semicolon (;)."
+  },
+  "options_page_save_button_text": {
+    "message": "Save"
+  },
+  "options_validation_input_mandatory": {
+    "message": "Input is mandatory."
+  },
+  "options_save_success": {
+    "message": "Options saved successfully."
+  }
+}
