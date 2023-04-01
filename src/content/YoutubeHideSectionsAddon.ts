@@ -12,6 +12,7 @@ class YoutubeHideSectionsAddon {
    * Start hiding sections.
    */
   public async start(): Promise<void> {
+    console.log("YHS - Starting");
     await this.restoreOptions();
 
     this.waitForElementById("contents").then((contentElement) => {
@@ -21,12 +22,14 @@ class YoutubeHideSectionsAddon {
 
       this.hideSections();
     });
+    console.log("YHS - Started");
   }
 
   /**
    * Hide sections.
    */
   private hideSections() {
+    console.log("YHS - Hiding sections");
     const sectionNames = this.options.sectionNames
       ?.split(";")
       .map((name) => name.trim().toLowerCase());
@@ -47,9 +50,11 @@ class YoutubeHideSectionsAddon {
         }
 
         if (section.style.display === "none") {
+          console.log(`YHS - Section already hidden: ${sectionTitleText}`);
           continue;
         }
 
+        console.log(`YHS - Hiding section: ${sectionTitleText}`);
         section.style.display = "none";
       }
     }
@@ -58,28 +63,42 @@ class YoutubeHideSectionsAddon {
   /**
    * Wait for an element to be added to the DOM.
    * @param elementId Element id to wait for.
-   * @returns Promise that resolves when the element is found.
+   * @param timeoutInSeconds Timeout in seconds.
+   * @returns Promise that resolves when the element is added to the DOM or rejects if the timeout is reached.
    */
-  private waitForElementById(elementId: string): Promise<HTMLElement> {
-    return new Promise((resolve) => {
+  private waitForElementById(
+    elementId: string,
+    timeoutInSeconds: number = 10
+  ): Promise<HTMLElement> {
+    return new Promise((resolve, reject) => {
       const element = document.getElementById(elementId);
       if (element) {
+        console.log(`YHS - Element already exists: ${elementId}`);
         resolve(element);
         return;
       }
 
-      const observer = new MutationObserver(() => {
-        const element = document.getElementById(elementId);
-        if (element) {
-          resolve(element);
-          return;
-        }
-      });
-
+      const observer = new MutationObserver(callback);
       observer.observe(document.body, {
         childList: true,
         subtree: true,
       });
+
+      const timeout = setTimeout(() => {
+        console.log(`YHS - Timeout reached: ${elementId}`);
+        observer.disconnect();
+        reject(`Element not found: ${elementId}`);
+      }, timeoutInSeconds * 1000);
+
+      function callback() {
+        const element = document.getElementById(elementId);
+        if (element) {
+          console.log(`YHS - Element found: ${elementId}`);
+          clearTimeout(timeout);
+          observer.disconnect();
+          resolve(element);
+        }
+      }
     });
   }
 
@@ -87,13 +106,16 @@ class YoutubeHideSectionsAddon {
    * Restore options from chrome.storage.
    */
   private async restoreOptions() {
+    console.log("YHS - Restoring options");
     const data = await chrome.storage.sync.get({
       options: { sectionNames: null },
     });
     Object.assign(this.options, data.options);
+    console.log(`YHS - Options restored: ${JSON.stringify(this.options)}`);
 
     chrome.storage.onChanged.addListener((changes, area) => {
       if (area === "sync" && changes.options?.newValue) {
+        console.log(`YHS - Options changed: ${JSON.stringify(changes)}`);
         Object.assign(this.options, changes.options.newValue);
         this.hideSections();
       }
