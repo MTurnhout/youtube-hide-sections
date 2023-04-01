@@ -12,11 +12,9 @@ class YoutubeHideSectionsAddon {
    * Start hiding sections.
    */
   public async start(): Promise<void> {
-    console.log("Addon started.");
     await this.restoreOptions();
 
     this.waitForElementById("contents").then((contentElement) => {
-      // Observe new sections being added to the page.
       this.observerHtmlStyle.observe(contentElement, {
         childList: true,
       });
@@ -29,13 +27,10 @@ class YoutubeHideSectionsAddon {
    * Hide sections.
    */
   private hideSections() {
-    console.log("Hide sections.");
     const sectionNames = this.options.sectionNames
       ?.split(";")
       .map((name) => name.trim().toLowerCase());
     if (!sectionNames) {
-      // No sections to hide.
-      console.log("No sections to hide.");
       return;
     }
 
@@ -52,17 +47,19 @@ class YoutubeHideSectionsAddon {
         }
 
         if (section.style.display === "none") {
-          // Section is already hidden.
-          console.log(`Section already hidden: ${sectionTitleText}`);
           continue;
         }
 
-        console.log(`Hide section: ${sectionTitleText}`);
         section.style.display = "none";
       }
     }
   }
 
+  /**
+   * Wait for an element to be added to the DOM.
+   * @param elementId Element id to wait for.
+   * @returns Promise that resolves when the element is found.
+   */
   private waitForElementById(elementId: string): Promise<HTMLElement> {
     return new Promise((resolve) => {
       const element = document.getElementById(elementId);
