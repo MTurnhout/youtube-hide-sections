@@ -91,7 +91,6 @@ class YoutubeHideSectionsAddon {
       options: { sectionNames: null },
     });
     Object.assign(this.options, data.options);
-    this.hideSections();
 
     chrome.storage.onChanged.addListener((changes, area) => {
       if (area === "sync" && changes.options?.newValue) {
