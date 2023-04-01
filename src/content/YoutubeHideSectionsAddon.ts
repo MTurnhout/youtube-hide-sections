@@ -3,7 +3,7 @@
  */
 class YoutubeHideSectionsAddon {
   private readonly observerHtmlStyle: MutationObserver = new MutationObserver(
-    this.hideSections
+    this.hideSections.bind(this)
   );
 
   private options: { sectionNames?: string } = {};
@@ -15,18 +15,14 @@ class YoutubeHideSectionsAddon {
     console.log("Addon started.");
     await this.restoreOptions();
 
-    const contentElement = document.getElementById("contents");
-    if (!contentElement) {
-      console.log("Content element not found.");
-      throw new Error("Content element not found.");
-    }
+    this.waitForElementById("contents").then((contentElement) => {
+      // Observe new sections being added to the page.
+      this.observerHtmlStyle.observe(contentElement, {
+        childList: true,
+      });
 
-    // Observe new sections being added to the page.
-    this.observerHtmlStyle.observe(contentElement, {
-      childList: true,
+      this.hideSections();
     });
-
-    this.hideSections();
   }
 
   /**
@@ -67,14 +63,37 @@ class YoutubeHideSectionsAddon {
     }
   }
 
+  private waitForElementById(elementId: string): Promise<HTMLElement> {
+    return new Promise((resolve) => {
+      const element = document.getElementById(elementId);
+      if (element) {
+        resolve(element);
+        return;
+      }
+
+      const observer = new MutationObserver(() => {
+        const element = document.getElementById(elementId);
+        if (element) {
+          resolve(element);
+          return;
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    });
+  }
+
   /**
    * Restore options from chrome.storage.
    */
   private async restoreOptions() {
-    const options = await chrome.storage.sync.get({
+    const data = await chrome.storage.sync.get({
       options: { sectionNames: null },
     });
-    Object.assign(this.options, options);
+    Object.assign(this.options, data.options);
     this.hideSections();
 
     chrome.storage.onChanged.addListener((changes, area) => {

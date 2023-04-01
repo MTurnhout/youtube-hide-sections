@@ -13,11 +13,11 @@ export class YoutubeHideSectionsAddonOptions {
       throw new Error("Section names input element not found.");
     }
 
-    const options = await chrome.storage.sync.get({
+    const data = await chrome.storage.sync.get({
       options: { sectionNames: null },
     });
 
-    sectionNamesInputElement.value = options.sectionNames;
+    sectionNamesInputElement.value = data.options.sectionNames;
   }
 
   /**
