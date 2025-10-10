@@ -1,0 +1,17 @@
+body {
+  background-color: light-dark(#fff, #23222b);
+  color: light-dark(#15141a, #fbfbfe);
+  font-family: "Segoe UI";
+  font-size: 15px;
+}
+
+.option {
+  padding: 16px 0;
+  border-bottom: 1px solid light-dark(#d7d7db, rgba(249, 249, 250, 0.2));
+}
+
+.remove-section {
+  color: darkred;
+  cursor: pointer;
+  margin-left: 8px;
+}
