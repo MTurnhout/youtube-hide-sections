@@ -1,13 +1,19 @@
 body {
   background-color: light-dark(#fff, #23222b);
   color: light-dark(#15141a, #fbfbfe);
-  font-family: "Segoe UI";
+  font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 15px;
 }
 
 .option {
   padding: 16px 0;
   border-bottom: 1px solid light-dark(#d7d7db, rgba(249, 249, 250, 0.2));
+}
+
+.hint {
+  margin: 8px 0 0;
+  font-size: 13px;
+  opacity: 0.7;
 }
 
 .remove-section {

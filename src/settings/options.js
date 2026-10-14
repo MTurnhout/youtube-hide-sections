@@ -2,7 +2,7 @@ const optionHiddenSectionsName = "option-hidden-sections";
 
 const hiddenSectionsContainer = document.getElementById("hidden-sections-list");
 const newSectionInput = document.getElementById("new-section-input");
-const addSectionButton = document.getElementById("add-section-button");
+const addSectionForm = document.getElementById("add-section-form");
 
 const getHiddenSections = () => {
   return browser.storage.sync.get(optionHiddenSectionsName).then((result) => {
@@ -76,7 +76,8 @@ browser.storage.onChanged.addListener((changes, area) => {
   }
 });
 
-addSectionButton.addEventListener("click", () => {
+addSectionForm.addEventListener("submit", (event) => {
+  event.preventDefault();
   const newSection = newSectionInput.value.trim();
   if (newSection) {
     addSection(newSection).then(() => {

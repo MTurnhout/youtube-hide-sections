@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="color-scheme" content="light dark" />
+    <title>Youtube Hide Sections</title>
     <link rel="stylesheet" href="options.css" />
     <script src="options.js" defer></script>
   </head>
@@ -10,8 +11,14 @@
     <div class="option">
       <div>Hidden Sections:</div>
       <ul id="hidden-sections-list"></ul>
-      <input type="text" id="new-section-input" placeholder="Title" />
-      <button id="add-section-button">Add</button>
+      <form id="add-section-form">
+        <input type="text" id="new-section-input" placeholder="Title" required />
+        <button type="submit">Add</button>
+      </form>
+      <p class="hint">
+        A title must match the section title on YouTube exactly, including
+        capitals.
+      </p>
     </div>
   </body>
 </html>

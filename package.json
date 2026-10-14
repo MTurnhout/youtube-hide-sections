@@ -1,0 +1,14 @@
+{
+  "name": "youtube-hide-sections",
+  "private": true,
+  "description": "Firefox extension that makes it possible to hide video sections on YouTube.",
+  "license": "Unlicense",
+  "scripts": {
+    "start": "web-ext run --source-dir src --start-url https://www.youtube.com",
+    "lint": "web-ext lint --source-dir src",
+    "build": "web-ext build --source-dir src --artifacts-dir dist --filename \"youtube-hide-sections-{version}.zip\" --overwrite-dest"
+  },
+  "devDependencies": {
+    "web-ext": "10.7.0"
+  }
+}

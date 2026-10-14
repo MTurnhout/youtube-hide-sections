@@ -1,0 +1,13 @@
+/* Use our own attribute instead of [hidden]: YouTube sets and clears [hidden]
+   itself, and its own display rules override the browser's default for it. */
+[data-yhs-hidden] {
+  display: none !important;
+}
+
+.yhs-hide-button {
+  cursor: pointer;
+  line-height: 2.8rem;
+  font-size: 2rem;
+  margin-left: 8px;
+  color: darkred;
+}
