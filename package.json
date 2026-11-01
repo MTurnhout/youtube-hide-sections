@@ -9,6 +9,6 @@
     "build": "web-ext build --source-dir src --artifacts-dir dist --filename \"youtube-hide-sections-{version}.zip\" --overwrite-dest"
   },
   "devDependencies": {
-    "web-ext": "10.7.0"
+    "web-ext": "10.8.0"
   }
 }
